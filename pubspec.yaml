@@ -1,0 +1,45 @@
+name: bayzat_pokedex
+description: pokedex app
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: ^2.0.3
+  flutter_bloc: ^8.0.1
+  cached_network_image: ^3.2.0
+  dio: ^4.0.6
+  hive_flutter: ^1.0.0
+  cupertino_icons: ^1.0.5
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  bloc_test: ^9.0.3
+  hive_generator: ^1.1.2
+  build_runner: ^2.1.7
+  flutter_lints: ^1.0.0
+  flutter_native_splash: ^2.1.6
+
+flutter:
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSans-Regular.ttf
+          weight: 400
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+flutter_native_splash: 
+  image: "assets/images/splash_logo.png"
+  color: "#3558CD"
