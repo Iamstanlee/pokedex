@@ -1,6 +1,6 @@
-import 'package:bayzat_pokedex/core/manager/http_manager.dart';
-import 'package:bayzat_pokedex/core/utils/extension/string.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
+import 'package:pokedex/core/manager/http_manager.dart';
+import 'package:pokedex/core/utils/extension/string.dart';
+import 'package:pokedex/data/model/pokemon.dart';
 
 abstract class IPokedexRemoteDataSource {
   Future<List<Pokemon>> getAllPokemon(int offset);

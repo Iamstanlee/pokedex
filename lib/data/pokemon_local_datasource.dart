@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
+import 'package:pokedex/data/model/pokemon.dart';
 import 'package:hive/hive.dart';
-import 'package:bayzat_pokedex/core/error/exception.dart';
+import 'package:pokedex/core/error/exception.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class IPokedexLocalDataSource {

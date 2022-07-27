@@ -1,8 +1,8 @@
-import 'package:bayzat_pokedex/core/error/failure.dart';
-import 'package:bayzat_pokedex/core/utils/either.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/presentation/bloc/pokemon_cubit.dart';
-import 'package:bayzat_pokedex/repository/pokemon_repository.dart';
+import 'package:pokedex/core/error/failure.dart';
+import 'package:pokedex/core/utils/either.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/presentation/bloc/pokemon_cubit.dart';
+import 'package:pokedex/repository/pokemon_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

@@ -1,4 +1,4 @@
-import 'package:bayzat_pokedex/core/utils/extension/num.dart';
+import 'package:pokedex/core/utils/extension/num.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

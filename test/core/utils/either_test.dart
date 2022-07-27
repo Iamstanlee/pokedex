@@ -1,4 +1,4 @@
-import 'package:bayzat_pokedex/core/utils/either.dart';
+import 'package:pokedex/core/utils/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

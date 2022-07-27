@@ -1,8 +1,8 @@
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/config/theme.dart';
-import 'package:bayzat_pokedex/core/widgets/loading_indicator.dart';
-import 'package:bayzat_pokedex/presentation/bloc/pokemon_cubit.dart';
-import 'package:bayzat_pokedex/presentation/pokemon/widgets/pokemon_grid_item.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/config/theme.dart';
+import 'package:pokedex/core/widgets/loading_indicator.dart';
+import 'package:pokedex/presentation/bloc/pokemon_cubit.dart';
+import 'package:pokedex/presentation/pokemon/widgets/pokemon_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

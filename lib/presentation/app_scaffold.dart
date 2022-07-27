@@ -1,10 +1,10 @@
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/config/theme.dart';
-import 'package:bayzat_pokedex/core/widgets/gap.dart';
-import 'package:bayzat_pokedex/presentation/pokemon/all_pokemon_tab.dart';
-import 'package:bayzat_pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
-import 'package:bayzat_pokedex/core/widgets/image.dart';
-import 'package:bayzat_pokedex/presentation/pokemon/favourite_pokemon_tab.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/config/theme.dart';
+import 'package:pokedex/core/widgets/gap.dart';
+import 'package:pokedex/presentation/pokemon/all_pokemon_tab.dart';
+import 'package:pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
+import 'package:pokedex/core/widgets/image.dart';
+import 'package:pokedex/presentation/pokemon/favourite_pokemon_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

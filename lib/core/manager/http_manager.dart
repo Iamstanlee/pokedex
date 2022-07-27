@@ -1,5 +1,5 @@
 import "package:dio/dio.dart";
-import 'package:bayzat_pokedex/core/error/exception.dart';
+import 'package:pokedex/core/error/exception.dart';
 
 enum RequestType { get }
 const successCodes = [200, 201];

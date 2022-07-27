@@ -1,4 +1,4 @@
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
+import 'package:pokedex/data/model/pokemon.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

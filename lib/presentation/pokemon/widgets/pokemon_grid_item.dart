@@ -1,10 +1,10 @@
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/config/theme.dart';
-import 'package:bayzat_pokedex/core/utils/extension/context.dart';
-import 'package:bayzat_pokedex/core/utils/extension/string.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/core/widgets/image.dart';
-import 'package:bayzat_pokedex/presentation/pokemon_info/pokemon_info.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/config/theme.dart';
+import 'package:pokedex/core/utils/extension/context.dart';
+import 'package:pokedex/core/utils/extension/string.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/core/widgets/image.dart';
+import 'package:pokedex/presentation/pokemon_info/pokemon_info.dart';
 import 'package:flutter/material.dart';
 
 class PokemonGridItem extends StatelessWidget {

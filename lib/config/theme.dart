@@ -1,4 +1,4 @@
-import 'package:bayzat_pokedex/config/constants.dart';
+import 'package:pokedex/config/constants.dart';
 import "package:flutter/material.dart";
 
 final lightThemeData = ThemeData(

@@ -1,6 +1,6 @@
-import 'package:bayzat_pokedex/core/error/exception.dart';
-import 'package:bayzat_pokedex/core/error/failure.dart';
-import 'package:bayzat_pokedex/core/utils/safe_print.dart';
+import 'package:pokedex/core/error/exception.dart';
+import 'package:pokedex/core/error/failure.dart';
+import 'package:pokedex/core/utils/safe_print.dart';
 import 'package:equatable/equatable.dart';
 
 /// A convenience class for handling either values of an option.

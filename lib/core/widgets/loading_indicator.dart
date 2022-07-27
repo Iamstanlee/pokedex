@@ -1,6 +1,6 @@
 import 'dart:math' show pi;
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/core/widgets/image.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/core/widgets/image.dart';
 import 'package:flutter/material.dart';
 
 class LoadingIndicator extends StatefulWidget {

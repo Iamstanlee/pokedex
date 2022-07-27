@@ -1,6 +1,8 @@
 # Pokedex
+
 [![build status](https://img.shields.io/github/workflow/status/Iamstanlee/pokedex/CI)](https://github.com/Iamstanlee/pokedex/actions?query=CI)
 [![coverage Status](https://coveralls.io/repos/github/Iamstanlee/pokedex/badge.svg?branch=main)](https://coveralls.io/github/Iamstanlee/pokedex?branch=main)
+
 ### Preview And Screenshots
 
 <img src="/ss/preview.gif" width="300px" hspace="10"/>
@@ -15,13 +17,12 @@
     <img src="/ss/4.png" width="200px" hspace="10"/>
 </p>
 
-
 # Pokedex
 
 ## Getting Started 🚀
 
 This project uses a simple layered architecture with seperation of concern, maintainance and
-testing in mind, A highlevel overview can be found here [pokedex app arch overview](https://www.figma.com/file/OkFnzWlIs01Gedq15pp52p/pokedex?node-id=0%3A1)
+testing in mind.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/data/pokemon_remote_datasource.dart';
-import 'package:bayzat_pokedex/repository/pokemon_repository.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/data/pokemon_remote_datasource.dart';
+import 'package:pokedex/repository/pokemon_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

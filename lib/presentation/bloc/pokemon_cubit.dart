@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/repository/pokemon_repository.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/repository/pokemon_repository.dart';
 
 class PokemonCubit extends Cubit<PokemonState> {
   final PokemonRepository pokemonRepository;

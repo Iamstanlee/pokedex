@@ -1,6 +1,6 @@
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
-import 'package:bayzat_pokedex/config/constants.dart';
-import 'package:bayzat_pokedex/config/theme.dart';
-import 'package:bayzat_pokedex/core/widgets/gap.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
+import 'package:pokedex/config/constants.dart';
+import 'package:pokedex/config/theme.dart';
+import 'package:pokedex/core/widgets/gap.dart';
+import 'package:pokedex/data/model/pokemon.dart';
 import 'package:flutter/material.dart';
 
 class PokemonInfoHeaderDelegate extends SliverPersistentHeaderDelegate {

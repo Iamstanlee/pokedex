@@ -1,7 +1,7 @@
-import 'package:bayzat_pokedex/core/error/failure.dart';
-import 'package:bayzat_pokedex/core/utils/either.dart';
-import 'package:bayzat_pokedex/data/model/pokemon.dart';
-import 'package:bayzat_pokedex/data/pokemon_remote_datasource.dart';
+import 'package:pokedex/core/error/failure.dart';
+import 'package:pokedex/core/utils/either.dart';
+import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/data/pokemon_remote_datasource.dart';
 
 class PokemonRepository {
   final IPokedexRemoteDataSource pokemonRemoteDataSource;

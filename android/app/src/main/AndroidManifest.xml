@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="bayzat.bayzat">
+    package="app.pokedex">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Pokedex"

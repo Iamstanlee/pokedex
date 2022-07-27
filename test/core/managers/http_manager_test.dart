@@ -1,5 +1,5 @@
-import 'package:bayzat_pokedex/core/error/exception.dart';
-import 'package:bayzat_pokedex/core/manager/http_manager.dart';
+import 'package:pokedex/core/error/exception.dart';
+import 'package:pokedex/core/manager/http_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dio/dio.dart';
