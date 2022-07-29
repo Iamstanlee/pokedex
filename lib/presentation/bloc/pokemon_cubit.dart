@@ -33,7 +33,7 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   void getNextPokemonList() async {
     if (!state.status.isLoading) {
-      _offset += state.pokemonList.length;
+      _offset += 24;
       getPokemonList();
     }
   }

@@ -28,75 +28,82 @@ class _AppScaffoldPageState extends State<AppScaffoldPage> {
           title: const LocalImage(Assets.pokedexLogo, height: 32),
         ),
         body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: ColoredBox(
-                color: Colors.white,
-                child: TabBar(
-                  unselectedLabelColor: const Color(0xff6B6B6B),
-                  labelColor: const Color(0xff161A33),
-                  indicatorColor: AppColors.primaryColor,
-                  labelPadding: const EdgeInsets.symmetric(vertical: Insets.xs),
-                  indicatorWeight: 3,
-                  tabs: [
-                    const Tab(
-                      child: Text(
-                        'All Pokemons',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: BlocBuilder<FavouritePokemonCubit,
-                          FavouritePokemonState>(
-                        builder: (context, state) {
-                          final favouriteCount =
-                              state.favouritePokemonList.length;
-                          return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Text(
-                                'Favourites',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              if (favouriteCount != 0) ...[
-                                const HGap(Insets.xs),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  padding: const EdgeInsets.all(Insets.xs),
-                                  child: Text(
-                                    '$favouriteCount',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              ]
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Expanded(
+          children: const [
+            TabBarHeader(),
+            Expanded(
               child: TabBarView(
                 children: [
                   AllPokemonTab(),
                   FavouritePokemonTab(),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TabBarHeader extends StatelessWidget {
+  const TabBarHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 2),
+      child: ColoredBox(
+        color: Colors.white,
+        child: TabBar(
+          unselectedLabelColor: const Color(0xff6B6B6B),
+          labelColor: const Color(0xff161A33),
+          indicatorColor: AppColors.primaryColor,
+          labelPadding: const EdgeInsets.symmetric(vertical: Insets.xs),
+          indicatorWeight: 3,
+          tabs: [
+            const Tab(
+              child: Text(
+                'All Pokemons',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Tab(
+              child: BlocBuilder<FavouritePokemonCubit, FavouritePokemonState>(
+                builder: (context, state) {
+                  final favouriteCount = state.favouritePokemonList.length;
+                  return Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Favourites',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                      if (favouriteCount != 0) ...[
+                        const HGap(Insets.xs),
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primaryColor,
+                          ),
+                          padding: const EdgeInsets.all(Insets.xs),
+                          child: Text(
+                            '$favouriteCount',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ]
+                    ],
+                  );
+                },
               ),
             ),
           ],
