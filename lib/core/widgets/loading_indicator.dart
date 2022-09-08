@@ -1,7 +1,7 @@
 import 'dart:math' show pi;
-import 'package:pokedex/config/constants.dart';
 import 'package:pokedex/core/widgets/image.dart';
 import 'package:flutter/material.dart';
+import 'package:pokedex/gen/assets.gen.dart';
 
 class LoadingIndicator extends StatefulWidget {
   const LoadingIndicator({Key? key}) : super(key: key);
@@ -34,8 +34,8 @@ class _LoadingIndicatorState extends State<LoadingIndicator>
             child: child,
           );
         },
-        child: const LocalImage(
-          Assets.pokedexIcon,
+        child: LocalImage(
+          Assets.images.appIcon.path,
           height: 36,
         ),
       ),

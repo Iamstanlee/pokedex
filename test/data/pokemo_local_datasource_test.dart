@@ -5,7 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../mock/pokemon.dart';
+
 class MockHiveBox<T> extends Mock implements Box<T> {}
+
 
 void main() {
   late Box<Pokemon> box;
@@ -15,7 +18,7 @@ void main() {
     box = MockHiveBox<Pokemon>();
     when(() => box.isOpen).thenReturn(true);
     pokedexLocalDataSource = PokedexLocalDataSource(box);
-    pokemon = Pokemon.empty();
+    pokemon = mockPokemon;
     registerFallbackValue(pokemon);
   });
 

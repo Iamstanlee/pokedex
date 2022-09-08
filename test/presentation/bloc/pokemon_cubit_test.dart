@@ -2,10 +2,13 @@ import 'package:pokedex/core/error/failure.dart';
 import 'package:pokedex/core/utils/either.dart';
 import 'package:pokedex/data/model/pokemon.dart';
 import 'package:pokedex/presentation/bloc/pokemon_cubit.dart';
+import 'package:pokedex/presentation/bloc/state.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../mock/pokemon.dart';
 
 class MockPokemonRepository extends Mock implements PokemonRepository {}
 
@@ -18,31 +21,31 @@ void main() {
     pokemonCubit = PokemonCubit(
       pokemonRepository: pokemonRepository,
     );
-    pokemon = Pokemon.empty();
+    pokemon = mockPokemon;
     registerFallbackValue(pokemon);
   });
-  group('.getAllPokemon', () {
-    blocTest<PokemonCubit, PokemonState>(
-      'should emit loaded state and return pokemon data',
+  group('.getPokemons', () {
+    blocTest<PokemonCubit, BlocState<List<Pokemon>>>(
+      'should emit ready state and return pokemon data',
       setUp: () {
         when(() => pokemonRepository.getAllPokemon(any())).thenAnswer(
-          (_) async => Right([Pokemon.empty()]),
+          (_) async => Right([mockPokemon]),
         );
       },
       build: () => pokemonCubit,
-      act: (bloc) => bloc.getPokemonList(),
+      act: (bloc) => bloc.getPokemons(),
       expect: () => [
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loading,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
         ),
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loaded,
-          pokemonList: [Pokemon.empty()],
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.ready,
+          data: [mockPokemon],
         ),
       ],
     );
 
-    blocTest<PokemonCubit, PokemonState>(
+    blocTest<PokemonCubit, BlocState<List<Pokemon>>>(
       'should emit error state and return error',
       setUp: () {
         when(() => pokemonRepository.getAllPokemon(any())).thenAnswer(
@@ -50,13 +53,13 @@ void main() {
         );
       },
       build: () => pokemonCubit,
-      act: (bloc) => bloc.getPokemonList(),
+      act: (bloc) => bloc.getPokemons(),
       expect: () => [
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loading,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
         ),
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.error,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.error,
           error: ServerFailure().message,
         ),
       ],
@@ -64,54 +67,61 @@ void main() {
   });
 
   group('.getNextPokemonList', () {
-    blocTest<PokemonCubit, PokemonState>(
-      'should emit loaded state and return next page of pokemon data',
+    blocTest<PokemonCubit, BlocState<List<Pokemon>>>(
+      'should emit ready state and return next page of pokemon data',
       setUp: () {
         when(() => pokemonRepository.getAllPokemon(any())).thenAnswer(
-          (_) async => Right([Pokemon.empty()]),
+          (_) async => Right([mockPokemon]),
         );
       },
       build: () => pokemonCubit,
-      seed: () => PokemonState.initial().copyWith(
-        status: PokemonStatus.loaded,
-        pokemonList: [Pokemon.empty()],
+      seed: () => BlocState.initial(const <Pokemon>[]).copyWith(
+        status: PageStatusType.ready,
+        data: [mockPokemon],
       ),
-      act: (bloc) => bloc.getNextPokemonList(),
+      act: (bloc) => bloc.getMorePokemons(),
       expect: () => [
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loading,
-          pokemonList: [Pokemon.empty()],
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
+          data: [mockPokemon],
         ),
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loaded,
-          pokemonList: [Pokemon.empty(), Pokemon.empty()],
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.ready,
+          data: [mockPokemon, mockPokemon],
         ),
       ],
     );
   });
 
   group('.getPokemon', () {
-    blocTest<PokemonCubit, PokemonState>(
-      'should emit loaded state and return pokemon data',
+    final testPokemon = mockPokemon.copyWith(id: 1);
+    blocTest<PokemonCubit, BlocState<List<Pokemon>>>(
+      'should emit ready state and return additional data for pokemon',
       setUp: () {
         when(() => pokemonRepository.getPokemon(any())).thenAnswer(
-          (_) async => Right(Pokemon.empty()),
+          (_) async => Right(mockPokemon.copyWith(height: 10, weight: 20)),
         );
       },
       build: () => pokemonCubit,
-      act: (bloc) => bloc.getPokemon(1),
+      seed: () => BlocState.initial(const <Pokemon>[]).copyWith(
+        status: PageStatusType.ready,
+        data: [testPokemon],
+      ),
+      act: (bloc) => bloc.getPokemon(testPokemon.id),
       expect: () => [
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loading,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
+          data: [testPokemon],
         ),
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loaded,
-          pokemon: Pokemon.empty(),
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.ready,
+          data: [testPokemon],
         ),
       ],
+      verify: (bloc) => bloc.state.data[0].hasAdditionalInfo,
     );
 
-    blocTest<PokemonCubit, PokemonState>(
+    blocTest<PokemonCubit, BlocState<List<Pokemon>>>(
       'should emit error state and return error',
       setUp: () {
         when(() => pokemonRepository.getPokemon(any())).thenAnswer(
@@ -121,11 +131,11 @@ void main() {
       build: () => pokemonCubit,
       act: (bloc) => bloc.getPokemon(1),
       expect: () => [
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.loading,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
         ),
-        PokemonState.initial().copyWith(
-          status: PokemonStatus.error,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.error,
           error: ServerFailure().message,
         ),
       ],

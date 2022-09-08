@@ -1,7 +1,9 @@
 import 'package:pokedex/config/constants.dart';
 import 'package:pokedex/config/theme.dart';
 import 'package:pokedex/core/widgets/loading_indicator.dart';
+import 'package:pokedex/data/model/pokemon.dart';
 import 'package:pokedex/presentation/bloc/pokemon_cubit.dart';
+import 'package:pokedex/presentation/bloc/state.dart';
 import 'package:pokedex/presentation/pokemon/widgets/pokemon_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,17 +33,17 @@ class _AllPokemonTabState extends State<AllPokemonTab> {
   void paginate() {
     if ((scrollController.position.pixels >=
         scrollController.position.maxScrollExtent + 100)) {
-      context.read<PokemonCubit>().getNextPokemonList();
+      context.read<PokemonCubit>().getMorePokemons();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PokemonCubit, PokemonState>(
+    return BlocBuilder<PokemonCubit, BlocState<List<Pokemon>>>(
       builder: (context, state) {
-        final pokemonList = state.pokemonList;
+        final pokemons = state.data;
 
-        if (pokemonList.isNotEmpty) {
+        if (pokemons.isNotEmpty) {
           return GridView.builder(
             key: const PageStorageKey('all_pokemon_tab'),
             controller: scrollController,
@@ -53,25 +55,24 @@ class _AllPokemonTabState extends State<AllPokemonTab> {
               mainAxisSpacing: Insets.sm,
               crossAxisSpacing: Insets.sm,
             ),
-            itemCount: pokemonList.length,
+            itemCount: pokemons.length,
             itemBuilder: (context, index) => PokemonGridItem(
-              pokemonList[index],
+              pokemons[index],
             ),
           );
         }
 
-        if (state.status.isError) {
+        if (state.isError) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  state.error,
+                  state.getError(),
                   textAlign: TextAlign.center,
                 ),
                 TextButton(
-                  onPressed: () =>
-                      context.read<PokemonCubit>().getPokemonList(),
+                  onPressed: () => context.read<PokemonCubit>().getPokemons(),
                   child: const Text(
                     'RETRY',
                     style: TextStyle(color: AppColors.primaryColor),

@@ -2,14 +2,6 @@ import 'package:pokedex/data/model/pokemon.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test("Pokemon.empty()", () {
-    final pokemon = Pokemon.empty();
-    expect(pokemon.bmi, 0);
-    expect(pokemon.averagePower, 0);
-    expect(pokemon.pokedexId, "#000");
-    expect(pokemon.baseType, "");
-  });
-
   test("Pokemon", () {
     const pokemon = Pokemon(
       id: 1,
@@ -42,5 +34,6 @@ void main() {
     expect(pokemon.averagePower, 50);
     expect(pokemon.pokedexId, "#001");
     expect(pokemon.baseType, "grass");
+    expect(pokemon.hasAdditionalInfo, true);
   });
 }

@@ -1,121 +1,66 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/presentation/bloc/state.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
 
-class PokemonCubit extends Cubit<PokemonState> {
+class PokemonCubit extends Cubit<BlocState<List<Pokemon>>> {
   final PokemonRepository pokemonRepository;
   PokemonCubit({required this.pokemonRepository})
-      : super(PokemonState.initial());
+      : super(BlocState.initial(const []));
 
   int _offset = 0;
 
-  void getPokemonList() async {
-    emit(state.copyWith(status: PokemonStatus.loading));
-    final failureOrPokemonList = await pokemonRepository.getAllPokemon(_offset);
-    failureOrPokemonList.fold(
+  void getPokemons() async {
+    emit(state.copyWith(status: PageStatusType.loading));
+    final failureOrPokemons = await pokemonRepository.getAllPokemon(_offset);
+    failureOrPokemons.fold(
       (failure) => emit(
         state.copyWith(
           error: failure.message,
-          status: PokemonStatus.error,
+          status: PageStatusType.error,
         ),
       ),
-      (pokemonList) {
+      (pokemons) {
         emit(
           state.copyWith(
-            pokemonList: state.pokemonList.followedBy(pokemonList).toList(),
-            status: PokemonStatus.loaded,
+            data: state.data.followedBy(pokemons).toList(),
+            status: PageStatusType.ready,
           ),
         );
       },
     );
   }
 
-  void getNextPokemonList() async {
-    if (!state.status.isLoading) {
+  void getMorePokemons() async {
+    if (!state.isLoading) {
       _offset += 24;
-      getPokemonList();
+      getPokemons();
     }
   }
 
   void getPokemon(int id) async {
     emit(
-      state.copyWith(
-        status: PokemonStatus.loading,
-        pokemon: Pokemon.empty(),
-      ),
+      state.copyWith(status: PageStatusType.loading),
     );
-    final failureOrPokemonList = await pokemonRepository.getPokemon(id);
-    failureOrPokemonList.fold(
+    final failureOrPokemons = await pokemonRepository.getPokemon(id);
+    failureOrPokemons.fold(
       (failure) => emit(
         state.copyWith(
           error: failure.message,
-          status: PokemonStatus.error,
+          status: PageStatusType.error,
         ),
       ),
       (pokemon) {
         emit(
           state.copyWith(
-            pokemon: pokemon,
-            status: PokemonStatus.loaded,
+            status: PageStatusType.ready,
+            // update the pokemon in the list with latest data
+            data: state.data
+                .map((e) => e.id == pokemon.id ? pokemon : e)
+                .toList(),
           ),
         );
       },
     );
   }
-}
-
-enum PokemonStatus {
-  initial,
-  loading,
-  loaded,
-  error,
-}
-
-extension PokemonStatusExtension on PokemonStatus {
-  bool get isInitial => this == PokemonStatus.initial;
-  bool get isLoading => this == PokemonStatus.loading;
-  bool get isLoaded => this == PokemonStatus.loaded;
-  bool get isError => this == PokemonStatus.error;
-}
-
-class PokemonState extends Equatable {
-  final Pokemon pokemon;
-  final List<Pokemon> pokemonList;
-  final String error;
-  final PokemonStatus status;
-  const PokemonState({
-    required this.pokemon,
-    required this.pokemonList,
-    required this.status,
-    this.error = "",
-  });
-
-  factory PokemonState.initial() => PokemonState(
-        status: PokemonStatus.initial,
-        pokemon: Pokemon.empty(),
-        pokemonList: const [],
-      );
-
-  PokemonState copyWith({
-    Pokemon? pokemon,
-    String? error,
-    PokemonStatus? status,
-    List<Pokemon>? pokemonList,
-  }) {
-    return PokemonState(
-      pokemon: pokemon ?? this.pokemon,
-      error: error ?? this.error,
-      status: status ?? this.status,
-      pokemonList: pokemonList ?? this.pokemonList,
-    );
-  }
-
-  @override
-  List<Object?> get props => [
-        pokemonList,
-        pokemon,
-        status,
-        error,
-      ];
 }

@@ -4,8 +4,11 @@ import 'package:pokedex/repository/favourite_pokemon_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../mock/pokemon.dart';
+
 class MockPokemonLocalDataSource extends Mock
     implements PokedexLocalDataSource {}
+
 
 void main() {
   late IPokedexLocalDataSource pokedexLocalDataSource;
@@ -15,7 +18,7 @@ void main() {
   setUp(() {
     pokedexLocalDataSource = MockPokemonLocalDataSource();
     pokemonRepository = FavouritePokemonRepository(pokedexLocalDataSource);
-    pokemon = Pokemon.empty();
+    pokemon = mockPokemon;
     registerFallbackValue(pokemon);
   });
 

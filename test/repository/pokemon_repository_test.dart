@@ -35,7 +35,7 @@ void main() {
   group('.getPokemon', () {
     test('should return pokemon data', () async {
       when(() => pokemonRemoteDataSource.getPokemon(any()))
-          .thenAnswer((_) async => Pokemon.empty());
+          .thenAnswer((_) async => Pokemon.fromMap(const {}));
       final result = await pokemonRepository.getPokemon(1);
       expect(result.isRight(), isTrue);
     });

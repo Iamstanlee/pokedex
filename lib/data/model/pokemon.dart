@@ -32,16 +32,7 @@ class Pokemon extends Equatable {
     required this.types,
   });
 
-  factory Pokemon.empty() => const Pokemon(
-        name: "",
-        id: 0,
-        weight: 0,
-        height: 0,
-        stats: [],
-        types: [],
-      );
-
-  bool get isEmpty => this == Pokemon.empty();
+  bool get hasAdditionalInfo => weight != 0 && height != 0;
 
   String get imageUrl =>
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';

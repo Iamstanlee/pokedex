@@ -7,6 +7,7 @@ import 'package:pokedex/core/widgets/gap.dart';
 import 'package:pokedex/core/widgets/image.dart';
 import 'package:pokedex/core/widgets/loading_indicator.dart';
 import 'package:pokedex/data/model/pokemon.dart';
+import 'package:pokedex/gen/assets.gen.dart';
 import 'package:pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
 import 'package:pokedex/presentation/bloc/pokemon_cubit.dart';
 import 'package:pokedex/presentation/pokemon_info/widgets/floating_button.dart';
@@ -47,15 +48,14 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
     final bool isMarkedAsFavourite = context
         .watch<FavouritePokemonCubit>()
         .state
-        .favouritePokemonList
+        .data
         .any((favourite) => favourite.id == widget.pokemon.id);
 
     final pokemonCubit = context.watch<PokemonCubit>();
-    // if the an error occur fetching the updated state
-    // the persisted state will be used if the pokemon is marked as favourite
-    final pokemon = pokemonCubit.state.pokemon.isEmpty
-        ? widget.pokemon
-        : pokemonCubit.state.pokemon;
+    final pokemon = pokemonCubit.state.data.firstWhere(
+      (e) => e.id == widget.pokemon.id && e.hasAdditionalInfo,
+      orElse: () => widget.pokemon,
+    );
 
     return Scaffold(
       body: CustomScrollView(
@@ -83,6 +83,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
               ),
               title: AnimatedPadding(
                 duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
                 padding: EdgeInsets.only(
                   left: isAppBarExpanded ? 32 : 0,
                   bottom: 3,
@@ -91,7 +92,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
                   pokemon.pokedexId,
                   style: TextStyle(
                     color: AppColors.textPrimaryColor,
-                    fontSize: isAppBarExpanded ? 15 : 12,
+                    fontSize: isAppBarExpanded ? 17 : 12,
                   ),
                 ),
               ),
@@ -104,7 +105,7 @@ class _PokemonInfoPageState extends State<PokemonInfoPage> {
             ),
             pinned: true,
           ),
-          if (pokemonCubit.state.status.isLoading) ...[
+          if (pokemonCubit.state.isLoading) ...[
             const SliverFillRemaining(
               child: LoadingIndicator(),
             ),
@@ -161,7 +162,7 @@ class FlexibleBackground extends StatelessWidget {
         Positioned(
           bottom: -Insets.md,
           child: Image.asset(
-            Assets.pokedex,
+            Assets.images.pokedex.path,
             fit: BoxFit.contain,
             height: 200,
             color: getTypeColor(pokemon.baseType),

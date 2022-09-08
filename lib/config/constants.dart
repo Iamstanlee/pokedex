@@ -10,12 +10,6 @@ class AppColors {
   static const textPrimaryColor = Color(0xFF161A33);
 }
 
-class Assets {
-  static const pokedexLogo = "assets/images/app_logo.png";
-  static const pokedexIcon = "assets/images/app_icon.png";
-  static const pokedex = "assets/images/pokedex.png";
-}
-
 class LocalDbKeys {
   static const favouriteDb = "favouriteDb";
 }

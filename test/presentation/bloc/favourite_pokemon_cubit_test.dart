@@ -2,10 +2,13 @@ import 'package:pokedex/core/error/failure.dart';
 import 'package:pokedex/core/utils/either.dart';
 import 'package:pokedex/data/model/pokemon.dart';
 import 'package:pokedex/presentation/bloc/favourite_pokemom_cubit.dart';
+import 'package:pokedex/presentation/bloc/state.dart';
 import 'package:pokedex/repository/favourite_pokemon_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../mock/pokemon.dart';
 
 class MockFavouritePokemonRepository extends Mock
     implements FavouritePokemonRepository {}
@@ -19,29 +22,31 @@ void main() {
     favouritePokemonCubit = FavouritePokemonCubit(
       pokemonRepository: favouritePokemonRepository,
     );
-    pokemon = Pokemon.empty();
+    pokemon = mockPokemon;
     registerFallbackValue(pokemon);
   });
   group('.getFavouritePokemonList', () {
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
-      'should emit loaded state and return pokemon data',
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
+      'should emit ready state and return pokemon data',
       setUp: () {
         when(() => favouritePokemonRepository.getAllPokemon()).thenAnswer(
-          (_) => Stream.value(Right([Pokemon.empty()])),
+          (_) => Stream.value(Right([mockPokemon])),
         );
       },
       build: () => favouritePokemonCubit,
-      act: (bloc) => bloc.getFavouritePokemonList(),
+      act: (bloc) => bloc.getFavouritePokemons(),
       expect: () => [
-        const FavouritePokemonState(status: FavouritePokemonStatus.loading),
-        FavouritePokemonState(
-          status: FavouritePokemonStatus.loaded,
-          favouritePokemonList: [Pokemon.empty()],
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
+        ),
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.ready,
+          data: [mockPokemon],
         ),
       ],
     );
 
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
       'should emit error state and return error',
       setUp: () {
         when(() => favouritePokemonRepository.getAllPokemon()).thenAnswer(
@@ -49,11 +54,13 @@ void main() {
         );
       },
       build: () => favouritePokemonCubit,
-      act: (bloc) => bloc.getFavouritePokemonList(),
+      act: (bloc) => bloc.getFavouritePokemons(),
       expect: () => [
-        const FavouritePokemonState(status: FavouritePokemonStatus.loading),
-        FavouritePokemonState(
-          status: FavouritePokemonStatus.error,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.loading,
+        ),
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.error,
           error: CacheFailure().message,
         ),
       ],
@@ -61,7 +68,7 @@ void main() {
   });
 
   group('.addPokemon', () {
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
         'verify that pokemon is added to favourite list',
         setUp: () {
           when(() => favouritePokemonRepository.savePokemon(any())).thenAnswer(
@@ -77,7 +84,7 @@ void main() {
           ).called(1);
         });
 
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
       'should emit error state and return error when cache failure occur',
       setUp: () {
         when(() => favouritePokemonRepository.savePokemon(any())).thenAnswer(
@@ -87,8 +94,8 @@ void main() {
       build: () => favouritePokemonCubit,
       act: (bloc) => bloc.addPokemon(pokemon),
       expect: () => [
-        FavouritePokemonState(
-          status: FavouritePokemonStatus.error,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.error,
           error: CacheFailure().message,
         ),
       ],
@@ -96,7 +103,7 @@ void main() {
   });
 
   group('.removePokemon', () {
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
         'verify that pokemon is removed from favourite list',
         setUp: () {
           when(() => favouritePokemonRepository.deletePokemon(any()))
@@ -113,7 +120,7 @@ void main() {
           ).called(1);
         });
 
-    blocTest<FavouritePokemonCubit, FavouritePokemonState>(
+    blocTest<FavouritePokemonCubit, BlocState<List<Pokemon>>>(
       'should emit error state and return error when cache failure occur',
       setUp: () {
         when(() => favouritePokemonRepository.deletePokemon(any())).thenAnswer(
@@ -123,8 +130,8 @@ void main() {
       build: () => favouritePokemonCubit,
       act: (bloc) => bloc.removePokemon(pokemon.id),
       expect: () => [
-        FavouritePokemonState(
-          status: FavouritePokemonStatus.error,
+        BlocState.initial(const <Pokemon>[]).copyWith(
+          status: PageStatusType.error,
           error: CacheFailure().message,
         ),
       ],

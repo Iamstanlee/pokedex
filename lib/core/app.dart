@@ -25,12 +25,12 @@ class PokedexApp extends StatelessWidget {
         BlocProvider<PokemonCubit>(
           create: (context) => PokemonCubit(
             pokemonRepository: pokemonRepository,
-          )..getPokemonList(),
+          )..getPokemons(),
         ),
         BlocProvider<FavouritePokemonCubit>(
           create: (context) => FavouritePokemonCubit(
             pokemonRepository: favouritePokemonRepository,
-          )..getFavouritePokemonList(),
+          )..getFavouritePokemons(),
         ),
       ],
       child: MaterialApp(

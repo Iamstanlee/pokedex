@@ -1,6 +1,6 @@
-import 'package:pokedex/config/constants.dart';
 import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/cupertino.dart";
+import 'package:pokedex/gen/assets.gen.dart';
 
 /// simple wrapper around CachedNetworkImage that provides any boilerplate we need for images on the app
 class HostedImage extends StatelessWidget {
@@ -26,10 +26,10 @@ class HostedImage extends StatelessWidget {
           CupertinoActivityIndicator.partiallyRevealed(
         progress: i.progress ?? 1,
       ),
-      errorWidget: (_, s, ___) => const Padding(
-        padding: EdgeInsets.all(24.0),
+      errorWidget: (_, s, ___) => Padding(
+        padding: const EdgeInsets.all(24.0),
         child: LocalImage(
-          Assets.pokedexIcon,
+          Assets.images.appIcon.path,
         ),
       ),
       fadeInDuration: const Duration(milliseconds: 1000),
