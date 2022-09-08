@@ -82,7 +82,7 @@ void main() {
       act: (bloc) => bloc.getMorePokemons(),
       expect: () => [
         BlocState.initial(const <Pokemon>[]).copyWith(
-          status: PageStatusType.loading,
+          status: PageStatusType.loadingMore,
           data: [mockPokemon],
         ),
         BlocState.initial(const <Pokemon>[]).copyWith(

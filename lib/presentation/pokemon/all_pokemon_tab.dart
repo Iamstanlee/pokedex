@@ -44,21 +44,32 @@ class _AllPokemonTabState extends State<AllPokemonTab> {
         final pokemons = state.data;
 
         if (pokemons.isNotEmpty) {
-          return GridView.builder(
-            key: const PageStorageKey('all_pokemon_tab'),
-            controller: scrollController,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(Insets.sm),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisExtent: kMaxGridExtent,
-              mainAxisSpacing: Insets.sm,
-              crossAxisSpacing: Insets.sm,
-            ),
-            itemCount: pokemons.length,
-            itemBuilder: (context, index) => PokemonGridItem(
-              pokemons[index],
-            ),
+          return Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  key: const PageStorageKey('all_pokemon_tab'),
+                  controller: scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(Insets.sm),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisExtent: kMaxGridExtent,
+                    mainAxisSpacing: Insets.sm,
+                    crossAxisSpacing: Insets.sm,
+                  ),
+                  itemCount: pokemons.length,
+                  itemBuilder: (context, index) => PokemonGridItem(
+                    pokemons[index],
+                  ),
+                ),
+              ),
+              if (state.isLoadingMore)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32),
+                  child: LoadingIndicator(),
+                ),
+            ],
           );
         }
 

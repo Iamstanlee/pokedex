@@ -10,8 +10,9 @@ class PokemonCubit extends Cubit<BlocState<List<Pokemon>>> {
 
   int _offset = 0;
 
-  void getPokemons() async {
-    emit(state.copyWith(status: PageStatusType.loading));
+  void getPokemons(
+      {PageStatusType bootstrapStatus = PageStatusType.loading}) async {
+    emit(state.copyWith(status: bootstrapStatus));
     final failureOrPokemons = await pokemonRepository.getAllPokemon(_offset);
     failureOrPokemons.fold(
       (failure) => emit(
@@ -34,7 +35,7 @@ class PokemonCubit extends Cubit<BlocState<List<Pokemon>>> {
   void getMorePokemons() async {
     if (!state.isLoading) {
       _offset += 24;
-      getPokemons();
+      getPokemons(bootstrapStatus: PageStatusType.loadingMore);
     }
   }
 
