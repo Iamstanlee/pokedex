@@ -1,6 +1,6 @@
 # Pokedex
 
-[![build status](https://img.shields.io/github/workflow/status/Iamstanlee/pokedex/CI)](https://github.com/Iamstanlee/pokedex/actions?query=CI)
+[![CI](https://github.com/Iamstanlee/pokedex/actions/workflows/main.yml/badge.svg)](https://github.com/Iamstanlee/pokedex/actions/workflows/main.yml)
 [![coverage Status](https://coveralls.io/repos/github/Iamstanlee/pokedex/badge.svg?branch=main)](https://coveralls.io/github/Iamstanlee/pokedex?branch=main)
 
 ## Preview And Screenshots
